@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.2.4/milligram.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Pokemon</h1>
+      <div id="root">
+        <label for="height">Height</label>
+        <input id="height" width="100px" height="20px">
+        <label for="weight">Weight</label>
+        <input id="weight" width="100px" height="20px">
+        <button id="button" class="button-primary" style="display: block">submit</button>
+        <img weight="600px" height="600px" id="output" />
+      </div>
+    </div>
+  </body>
+  <script>
+    document.querySelector('#button').addEventListener('click', function() {
+      var h = document.querySelector('#height').value;
+      var w = document.querySelector('#weight').value;
+      var root = document.querySelector('#root');
+      var image = document.querySelector('#output');
+      fetch('/similarity?height='+h+'&weight='+w, { method: 'get' }).then(function(res){
+        if (res.ok) {
+          res.text().then(function(text) {
+            image.src = '/images/' + text + '.png';
+            
+          })
+        }
+      })
+    })
+  </script>
+</html>
